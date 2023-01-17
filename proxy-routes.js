@@ -19,7 +19,14 @@ const ROUTES = [
                 [`^/proyectos`]: '',
             },
         }
-    }
+    },
+    {
+        url: '/favicon.ico',
+        proxy: {
+            target: "/static-files/img/favico.ico",
+        },
+
+    },
 ]
 
 exports.routes = ROUTES;
