@@ -2,7 +2,7 @@ const ROUTES = [
     {
         url: '/personas',
         proxy: {
-            target: "http://localhost:8001",
+            target: "http://localhost:8002",
             changeOrigin: true,
             pathRewrite: {
                 [`^/personas`]: '',
@@ -13,20 +13,20 @@ const ROUTES = [
         url: '/proyectos',
 
         proxy: {
-            target: "http://localhost:8002",
+            target: "http://localhost:8003",
             changeOrigin: true,
             pathRewrite: {
                 [`^/proyectos`]: '',
             },
         }
     },
-    {
+    /*{
         url: '/favicon.ico',
         proxy: {
-            target: "/static-files/img/favico.ico",
+            target: "/static-files/img/favicon.ico",
         },
 
-    },
+    },*/
 ]
 
 exports.routes = ROUTES;
