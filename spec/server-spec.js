@@ -85,6 +85,20 @@ describe('API Gateway: acceso a ', () => {
         })
         .end((error) => { error ? done.fail(error) : done() })
     });
+
+    it('Devuelve 2 personas en el segundo proyecto al consultar getTodosConPersonas', (done) => {
+      supertest(app)
+        .get('/proyectos/getTodosConPersonas')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( "Get Todos Proyectos Con Personas", res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.hasOwnProperty('data'));
+          assert(res.body.data[1].data.hasOwnProperty('datos_personas'));
+          assert(res.body.data[1].data.datos_personas.length === 2);
+        })
+        .end((error) => { error ? done.fail(error) : done() })
+    });
   });
 
   describe('BBDD Personas', () => {
