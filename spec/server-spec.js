@@ -5,32 +5,103 @@
  */
 
 
-const request = require('supertest');
+const supertest = require('supertest');
+const assert = require('assert')
 const app = require('../server');
 
-describe('SERVER', () => {
-  describe('REST API v1', () => {
-    it('Devuelve Personas home', (done) => {
-      request(app)
-        .get('/personas')
+describe('API Gateway: rutas estáticas', () => {
+  describe('Rutas estáticas de Proyectos', () => {
+    it('Devuelve Proyectos Home Page', (done) => {
+      supertest(app)
+        .get('/proyectos/')
         .expect(200)
-        .expect('Content-Type', 'text/html; charset=utf-8')
-        .end(function (error, res){
-          if (error) return done.fail(error);
-          expect(res.text).toEqual("Microservicio Personas: home page")
-          done();
-        });
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.hasOwnProperty('mensaje'));
+          assert(res.body.mensaje === "Microservicio Proyectos: home");
+
+        })
+        .end((error) => { error ? done.fail(error) : done() })
     });
-    it('Devuelve Personas about', (done) => {
-      request(app)
-        .get('/personas/about')
+    it('Devuelve Proyectos Acerca De', (done) => {
+      supertest(app)
+        .get('/proyectos/acercade')
         .expect(200)
-        .expect('Content-Type', 'text/html; charset=utf-8')
-        .end(function (error, res){
-          if (error) return done.fail(error);
-          expect(res.text).toEqual("Microservicio Personas: about page")
-          done();
-        });
-    })
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( "BODY ACERCA DE ", res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.hasOwnProperty('mensaje'));
+          assert(res.body.mensaje === "Microservicio Proyectos: acerca de");
+
+        })
+        .end((error) => { error ? done.fail(error) : done() })
+    });
+  });
+  describe('Rutas estáticas de Personas', () => {
+    it('Devuelve Personas Home Page', (done) => {
+      supertest(app)
+        .get('/personas/')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.hasOwnProperty('mensaje'));
+          assert(res.body.mensaje === "Microservicio Personas: home");
+
+        })
+        .end((error) => { error ? done.fail(error) : done() })
+    });
+    it('Devuelve Personas Acerca De', (done) => {
+      supertest(app)
+        .get('/personas/acercade')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( "BODY ACERCA DE ", res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.hasOwnProperty('mensaje'));
+          assert(res.body.mensaje === "Microservicio Personas: acerca de");
+
+        })
+        .end((error) => { error ? done.fail(error) : done() })
+    });
   })
 });
+
+
+
+describe('API Gateway: acceso a ', () => {
+  describe('BBDD Proyectos', () => {
+    it('Obtener todos los proyectos: debe tener un campo data que es un array de 2 objetos', (done) => {
+      supertest(app)
+        .get('/proyectos/getTodos')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( "Get Todos Proyectos", res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.hasOwnProperty('data'));
+          assert(res.body.data.length === 2);
+
+        })
+        .end((error) => { error ? done.fail(error) : done() })
+    });
+  });
+
+  describe('BBDD Personas', () => {
+    it('Obtener todos los personas: debe tener un campo data que es un array de 3 objetos', (done) => {
+      supertest(app)
+        .get('/personas/getTodas')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .expect(function (res) {
+          //console.log( "Get Todos Personas", res.body ); // Para comprobar qué contiene exactamente res.body
+          assert(res.body.hasOwnProperty('data'));
+          assert(res.body.data.length === 3);
+
+        })
+        .end((error) => { error ? done.fail(error) : done() })
+    });
+  });
+
+});
+
