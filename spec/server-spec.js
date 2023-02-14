@@ -102,7 +102,7 @@ describe('API Gateway: acceso a ', () => {
   });
 
   describe('BBDD Personas', () => {
-    it('Obtener todas las personas: debe tener un campo data que es un array de 3 objetos', (done) => {
+    it(' > Obtener todas las personas: debe tener un campo data que es un array de 3 objetos', (done) => {
       supertest(app)
         .get('/personas/getTodas')
         .expect(200)
@@ -117,16 +117,16 @@ describe('API Gateway: acceso a ', () => {
     });
 
 
-    it('Obtener una persona por su id: debe tener un campo data y a su vez un email que es carlos@hotmail.com', (done) => {
+    it(' > Obtener una persona por su id: debe tener un campo data y a su vez un email que es ana.alvarez@gmail.com', (done) => {
       supertest(app)
-        .get('/personas/getPorId/354047536357441750')
+        .get('/personas/getPorId/354047338258366678')
         .expect(200)
         .expect('Content-Type', /json/)
         .expect(function (res) {
           // console.log( "getPorId Persona", res.body ); // Para comprobar qué contiene exactamente res.body
           assert(res.body.hasOwnProperty('data'));
           assert(res.body.data.hasOwnProperty('email'));
-          assert(res.body.data.email === "carlos@hotmail.com");
+          assert(res.body.data.email === "ana.alvarez@gmail.com");
         })
         .end((error) => { error ? done.fail(error) : done() })
     });
