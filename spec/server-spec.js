@@ -1,9 +1,11 @@
 /**
- * Fichero con la especificación de las pruebas TDD para callback.js
+ * @file server-spec.js 
+ * @description Fichero con la especificación de pruebas para la aplicación API-gateway
  * Este fichero DEBE llamarse server-spec.js
  * Este fichero DEBE ubicarse en el subdirectorio spec/
+ * @author Víctor M. Rivas <vrivas@ujaen.es>
+ * @date 03-feb-2023
  */
-
 
 const supertest = require('supertest');
 const assert = require('assert')
